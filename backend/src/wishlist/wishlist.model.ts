@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { IFilm } from '../types';
 
-const likedSchema = new Schema(
+const wishlistSchema = new Schema(
   {
     owner: {
       type: Schema.Types.ObjectId,
@@ -34,10 +34,10 @@ const likedSchema = new Schema(
   },
 );
 
-likedSchema.methods.checkOwner = function (userId: string) {
+wishlistSchema.methods.checkOwner = function (userId: string) {
   return this.owner.toString() === userId;
 };
 
-const Liked = model<IFilm>('liked', likedSchema);
+const Wishlist = model<IFilm>('wishlist', wishlistSchema);
 
-export default Liked;
+export default Wishlist;
