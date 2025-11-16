@@ -1,5 +1,6 @@
 import { Schema, model, Model, Types } from 'mongoose';
 import bcryptjs from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import NotAuthorizedError from '../errors/not-authorized-errors';
 
 interface IUser {
@@ -59,6 +60,18 @@ const usersSchema = new Schema(
     },
   },
 );
+
+usersSchema.methods.generateToken = function () {
+  return jwt.sign(
+    {
+      id: this._id,
+    },
+    process.env.JWT_SECRET as string,
+    {
+      expiresIn: '1h',
+    },
+  );
+};
 
 usersSchema.pre('save', async function (next) {
   try {
