@@ -5,6 +5,7 @@ import 'dotenv/config';
 
 import authMiddleware from './middlewares/auth';
 import userRouter from './users/users.router';
+import filmsRouter from './films/films.router';
 import { errorHandler } from './middlewares/error-handler';
 
 const { PORT, MONGO_URL } = process.env;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(userRouter);
+app.use(filmsRouter);
 app.use(authMiddleware);
 
 app.use(errorHandler);
